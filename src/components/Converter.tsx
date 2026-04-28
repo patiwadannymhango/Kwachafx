@@ -10,10 +10,11 @@ import {
   MenuItem,
   InputLabel,
   FormControl,
-  Grid,
   Paper,
   Divider,
 } from "@mui/material";
+
+import Grid from "@mui/material/Grid2";
 
 interface Props {
   rates: Record<string, number>;
@@ -32,25 +33,23 @@ const Converter: React.FC<Props> = ({ rates }) => {
       sx={{
         p: 2.5,
         mt: 4,
-       
         mx: "auto",
         borderRadius: 3,
         border: "1px solid #f0f0f0",
         backgroundColor: "#ffffff",
       }}
     >
-      {/* Header */}
       <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
         Currency Converter
       </Typography>
 
       <Divider sx={{ mb: 2 }} />
 
-      {/* Input + Controls */}
-      <Grid container spacing={1.5} sx={{ alignItems: "center" ,  justifyContent: "center" }}>
+      {/* GRID */}
+      <Grid container spacing={1.5} sx={{ alignItems: "center", justifyContent: "center" }}>
         
         {/* Amount */}
-        <Grid item xs={12}>
+        <Grid size={12}>
           <TextField
             fullWidth
             size="small"
@@ -62,7 +61,7 @@ const Converter: React.FC<Props> = ({ rates }) => {
         </Grid>
 
         {/* From */}
-        <Grid item xs={5}>
+        <Grid size={5}>
           <FormControl fullWidth size="small">
             <InputLabel>From</InputLabel>
             <Select
@@ -80,14 +79,14 @@ const Converter: React.FC<Props> = ({ rates }) => {
         </Grid>
 
         {/* Arrow */}
-        <Grid item xs={2} sx={{ textAlign: "center" }}>
+        <Grid size={2} sx={{ textAlign: "center" }}>
           <Typography sx={{ fontSize: "1rem", color: "#888" }}>
             →
           </Typography>
         </Grid>
 
         {/* To */}
-        <Grid item xs={5}>
+        <Grid size={5}>
           <FormControl fullWidth size="small">
             <InputLabel>To</InputLabel>
             <Select
@@ -123,7 +122,6 @@ const Converter: React.FC<Props> = ({ rates }) => {
           {result.toFixed(2)} {to}
         </Typography>
 
-        {/* Extra context */}
         <Typography variant="caption" color="text.secondary">
           {currencies.find(c => c.code === from)?.country} →{" "}
           {currencies.find(c => c.code === to)?.country}
