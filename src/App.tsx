@@ -53,17 +53,26 @@ const App = () => {
       {/* MAIN CONTENT */}
       <Box sx={{ flex: 1, p: 3 }}>
         {/* Header */}
-        <Box display="flex" alignItems="center" gap={2} mb={1}>
-          <Box
-            component="img"
-            src={logo}
-            alt="KwachaFX Logo"
-            sx={{ width: 70, height: 60 }}
-          />
-          <Typography variant="h4" sx={{ fontWeight: 700 }}>
-            KwachaFX
-          </Typography>
-        </Box>
+        <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",   
+              alignItems: "center",    
+              gap: 1,
+              mb: 2,
+            }}
+          >
+            <Box
+              component="img"
+              src={logo}
+              alt="KwachaFX Logo"
+              sx={{ width: 70, height: 60 }}
+            />
+
+            <Typography variant="h4" sx={{ fontWeight: 700 }}>
+              KwachaFX
+            </Typography>
+          </Box>
 
         <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
           Real-time Zambian Kwacha Exchange Rates
@@ -117,7 +126,7 @@ const App = () => {
         </Box>
 
         {/* 🔁 Converter */}
-        <Box sx={{ mt: 4 }}>
+        <Box>
           <Converter rates={rates} />
         </Box>
       </Box>

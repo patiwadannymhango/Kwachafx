@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { convertCurrency } from "../utils/convert";
+import { currencies } from "../data/currencies";
 
 import {
   Box,
@@ -31,7 +32,7 @@ const Converter: React.FC<Props> = ({ rates }) => {
       sx={{
         p: 2.5,
         mt: 4,
-        maxWidth: 520,
+       
         mx: "auto",
         borderRadius: 3,
         border: "1px solid #f0f0f0",
@@ -39,19 +40,17 @@ const Converter: React.FC<Props> = ({ rates }) => {
       }}
     >
       {/* Header */}
-      <Typography
-        variant="subtitle1"
-        sx={{ fontWeight: 600, mb: 1 }}
-      >
+      <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 1 }}>
         Currency Converter
       </Typography>
 
       <Divider sx={{ mb: 2 }} />
 
       {/* Input + Controls */}
-      <Grid container spacing={1.5} alignItems="center">
+      <Grid container spacing={1.5} sx={{ alignItems: "center" ,  justifyContent: "center" }}>
+        
         {/* Amount */}
-        <Grid size={12}>
+        <Grid item xs={12}>
           <TextField
             fullWidth
             size="small"
@@ -63,7 +62,7 @@ const Converter: React.FC<Props> = ({ rates }) => {
         </Grid>
 
         {/* From */}
-        <Grid size={5}>
+        <Grid item xs={5}>
           <FormControl fullWidth size="small">
             <InputLabel>From</InputLabel>
             <Select
@@ -71,9 +70,9 @@ const Converter: React.FC<Props> = ({ rates }) => {
               label="From"
               onChange={(e) => setFrom(e.target.value)}
             >
-              {Object.keys(rates).map((cur) => (
-                <MenuItem key={cur} value={cur}>
-                  {cur}
+              {currencies.map((cur) => (
+                <MenuItem key={cur.code} value={cur.code}>
+                  {cur.code} — {cur.country}
                 </MenuItem>
               ))}
             </Select>
@@ -81,14 +80,14 @@ const Converter: React.FC<Props> = ({ rates }) => {
         </Grid>
 
         {/* Arrow */}
-        <Grid size={2} sx={{ textAlign: "center" }}>
+        <Grid item xs={2} sx={{ textAlign: "center" }}>
           <Typography sx={{ fontSize: "1rem", color: "#888" }}>
             →
           </Typography>
         </Grid>
 
         {/* To */}
-        <Grid size={5}>
+        <Grid item xs={5}>
           <FormControl fullWidth size="small">
             <InputLabel>To</InputLabel>
             <Select
@@ -96,9 +95,9 @@ const Converter: React.FC<Props> = ({ rates }) => {
               label="To"
               onChange={(e) => setTo(e.target.value)}
             >
-              {Object.keys(rates).map((cur) => (
-                <MenuItem key={cur} value={cur}>
-                  {cur}
+              {currencies.map((cur) => (
+                <MenuItem key={cur.code} value={cur.code}>
+                  {cur.code} — {cur.country}
                 </MenuItem>
               ))}
             </Select>
@@ -120,11 +119,14 @@ const Converter: React.FC<Props> = ({ rates }) => {
           Converted Amount
         </Typography>
 
-        <Typography
-          variant="h6"
-          sx={{ fontWeight: 700, mt: 0.5 }}
-        >
+        <Typography variant="h6" sx={{ fontWeight: 700, mt: 0.5 }}>
           {result.toFixed(2)} {to}
+        </Typography>
+
+        {/* Extra context */}
+        <Typography variant="caption" color="text.secondary">
+          {currencies.find(c => c.code === from)?.country} →{" "}
+          {currencies.find(c => c.code === to)?.country}
         </Typography>
       </Box>
     </Paper>
