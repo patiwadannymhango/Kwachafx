@@ -1,28 +1,3 @@
-
-// interface Props {
-//   currency: string;
-//   country: string;
-//   value: number;
-// }
-
-// const RateCard: React.FC<Props> = ({ currency, country, value }) => {
-//   return (
-//     <div
-//       style={{
-//         padding: "10px",
-//         margin: "10px 0",
-//         border: "1px solid #ddd",
-//         borderRadius: "8px",
-//         background: "#fff",
-//       }}
-//     >
-//       <strong> {currency} </strong> - {country} {currency} = {value.toFixed(2)} ZMW
-//     </div>
-//   );
-// };
-
-// export default RateCard;
-
 import React from "react";
 import { Card, CardContent, Typography, Box } from "@mui/material";
 
@@ -36,29 +11,43 @@ const RateCard: React.FC<Props> = ({ currency, country, value }) => {
   return (
     <Card
       sx={{
-        my: 1.5,
+        my: 1,
+        px: 1.5,
+        py: 0.5,
         borderRadius: 2,
-        border: "1px solid #e0e0e0",
-        boxShadow: "none",
-        backgroundColor: "#fff",
+        border: "1px solid #f0f0f0",
+        boxShadow: "0 1px 3px rgba(0,0,0,0.05)",
+        backgroundColor: "#ffffff",
       }}
     >
-      <CardContent>
-        <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-
-          <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
-
+      <CardContent sx={{ p: "8px !important" }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          {/* Left: Currency */}
+          <Typography variant="body2" sx={{ fontWeight: 600 }}>
             {currency}
           </Typography>
 
-          <Typography variant="body2" color="text.secondary">
+          {/* Right: Country */}
+          <Typography variant="caption" color="text.secondary">
             {country}
           </Typography>
         </Box>
 
-        <Typography variant="body1" sx={{ mt: 1 }}>
+        {/* Rate */}
+        <Typography
+          variant="body2"
+          sx={{ mt: 0.5, fontWeight: 500 }}
+        >
           1 {currency} ={" "}
-          <strong>{value.toFixed(2)} ZMW</strong>
+          <span style={{ fontWeight: 700 }}>
+            {value.toFixed(2)} ZMW
+          </span>
         </Typography>
       </CardContent>
     </Card>

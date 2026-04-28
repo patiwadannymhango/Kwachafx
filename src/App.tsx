@@ -12,6 +12,7 @@ import { fetchRates } from "./services/api";
 import Converter from "./components/Converter";
 import RateCard from "./components/RateCard";
 import { currencies } from "./data/currencies";
+import logo from "./assets/logo.png";
 
 const App = () => {
   const [rates, setRates] = useState<Record<string, number>>({});
@@ -41,65 +42,99 @@ const App = () => {
   }
 
   return (
-    <Box sx={{ p: 3, backgroundColor: "#f5f7fb", minHeight: "100vh" }}>
-      <Typography variant="h4" sx={{ fontWeight: 700 }}>
-        KwachaFX
-      </Typography>
+    <Box
+      sx={{
+        backgroundColor: "#f5f7fb",
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      {/* MAIN CONTENT */}
+      <Box sx={{ flex: 1, p: 3 }}>
+        {/* Header */}
+        <Box display="flex" alignItems="center" gap={2} mb={1}>
+          <Box
+            component="img"
+            src={logo}
+            alt="KwachaFX Logo"
+            sx={{ width: 70, height: 60 }}
+          />
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
+            KwachaFX
+          </Typography>
+        </Box>
 
-      <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
-        Real-time Zambian Kwacha Exchange Rates
-      </Typography>
-
-      {/* 🧠 Currency selector panel */}
-      <Paper sx={{ p: 2, mb: 3, borderRadius: 2 }}>
-        <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
-          Select currencies
+        <Typography variant="body2" sx={{ color: "text.secondary", mb: 3 }}>
+          Real-time Zambian Kwacha Exchange Rates
         </Typography>
 
-        <Autocomplete
-          multiple
-          options={currencies}
-          value={currencies.filter((c) => selected.includes(c.code))}
-          onChange={(_, newValue) => {
-            setSelected(newValue.map((v) => v.code));
-          }}
-          getOptionLabel={(option) => `${option.code} - ${option.country}`}
-          renderOption={(props, option) => (
-            <li {...props}>
-              <strong>{option.code}</strong> — {option.country}
-            </li>
-          )}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Search & select currencies"
-              placeholder="Type USD, EUR, ZAR..."
-            />
-          )}
-        />
-      </Paper>
+        {/* 🧠 Currency selector panel */}
+        <Paper sx={{ p: 2, mb: 3, borderRadius: 2 }}>
+          <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
+            Select currencies
+          </Typography>
 
-      {/* 💱 Exchange rates */}
-      <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
-        Exchange Rates
-      </Typography>
+          <Autocomplete
+            multiple
+            options={currencies}
+            value={currencies.filter((c) => selected.includes(c.code))}
+            onChange={(_, newValue) => {
+              setSelected(newValue.map((v) => v.code));
+            }}
+            getOptionLabel={(option) => `${option.code} - ${option.country}`}
+            renderOption={(props, option) => (
+              <li {...props}>
+                <strong>{option.code}</strong> — {option.country}
+              </li>
+            )}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Search & select currencies"
+                placeholder="Type USD, EUR, ZAR..."
+              />
+            )}
+          />
+        </Paper>
 
-      <Box>
-        {currencies
-          .filter((cur) => selected.includes(cur.code))
-          .map((cur) => (
-            <RateCard
-              key={cur.code}
-              currency={cur.code}
-              country={cur.country}
-              value={rates["ZMW"] / rates[cur.code]}
-            />
-          ))}
+        {/* 💱 Exchange rates */}
+        <Typography variant="h6" sx={{ fontWeight: 600, mb: 2 }}>
+          Exchange Rates
+        </Typography>
+
+        <Box>
+          {currencies
+            .filter((cur) => selected.includes(cur.code))
+            .map((cur) => (
+              <RateCard
+                key={cur.code}
+                currency={cur.code}
+                country={cur.country}
+                value={rates["ZMW"] / rates[cur.code]}
+              />
+            ))}
+        </Box>
+
+        {/* 🔁 Converter */}
+        <Box sx={{ mt: 4 }}>
+          <Converter rates={rates} />
+        </Box>
       </Box>
 
-      {/* 🔁 Converter */}
-      <Box sx={{ mt: 4 }}>
-        <Converter rates={rates} />
+      {/* FOOTER */}
+      <Box
+        component="footer"
+        sx={{
+          textAlign: "center",
+          py: 2,
+          borderTop: "1px solid #e0e0e0",
+          backgroundColor: "#ffffff",
+        }}
+      >
+        <Typography variant="body2" color="text.secondary">
+          Designed by Patiwa Danny Mhango © {new Date().getFullYear()}
+        </Typography>
       </Box>
     </Box>
   );

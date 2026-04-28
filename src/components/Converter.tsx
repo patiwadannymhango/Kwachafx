@@ -1,51 +1,3 @@
-// import { useState } from "react";
-// import { convertCurrency } from "../utils/convert";
-
-// interface Props {
-//   rates: Record<string, number>;
-// }
-
-// const Converter: React.FC<Props> = ({ rates }) => {
-
-//   const [amount, setAmount] = useState<number>(100);
-//   const [from, setFrom] = useState<string>("ZMW");
-//   const [to, setTo] = useState<string>("USD");
-
-//   const result = convertCurrency(amount, from, to, rates);
-
-//   return (
-//     <div style={{ marginTop: "20px" }}>
-//       <h2>Currency Converter</h2>
-
-//       <input
-//         type="number"
-//         value={amount}
-//         onChange={(e) => setAmount(Number(e.target.value))}
-//       />
-
-//       <select value={from} onChange={(e) => setFrom(e.target.value)}>
-//         {Object.keys(rates).map((cur) => (
-//           <option key={cur}>{cur}</option>
-//         ))}
-//       </select>
-
-//       <span> → </span>
-
-//       <select value={to} onChange={(e) => setTo(e.target.value)}>
-//         {Object.keys(rates).map((cur) => (
-//           <option key={cur}>{cur}</option>
-//         ))}
-//       </select>
-
-//       <p>
-//         Result: {result.toFixed(2)} {to}
-//       </p>
-//     </div>
-//   );
-// };
-
-// export default Converter;
-
 import { useState } from "react";
 import { convertCurrency } from "../utils/convert";
 
@@ -59,6 +11,7 @@ import {
   FormControl,
   Grid,
   Paper,
+  Divider,
 } from "@mui/material";
 
 interface Props {
@@ -73,18 +26,35 @@ const Converter: React.FC<Props> = ({ rates }) => {
   const result = convertCurrency(amount, from, to, rates);
 
   return (
-    <Paper elevation={3} sx={{ p: 3, mt: 3, maxWidth: 600, mx: "auto" }}>
-      <Typography variant="h5" gutterBottom>
+    <Paper
+      elevation={0}
+      sx={{
+        p: 2.5,
+        mt: 4,
+        maxWidth: 520,
+        mx: "auto",
+        borderRadius: 3,
+        border: "1px solid #f0f0f0",
+        backgroundColor: "#ffffff",
+      }}
+    >
+      {/* Header */}
+      <Typography
+        variant="subtitle1"
+        sx={{ fontWeight: 600, mb: 1 }}
+      >
         Currency Converter
       </Typography>
 
-    <Grid></Grid>
-    
-      <Grid container spacing={2} sx={{ alignItems: "center" }}>
-        {/* Amount Input */}
+      <Divider sx={{ mb: 2 }} />
+
+      {/* Input + Controls */}
+      <Grid container spacing={1.5} alignItems="center">
+        {/* Amount */}
         <Grid size={12}>
           <TextField
             fullWidth
+            size="small"
             label="Amount"
             type="number"
             value={amount}
@@ -92,9 +62,9 @@ const Converter: React.FC<Props> = ({ rates }) => {
           />
         </Grid>
 
-        {/* From Currency */}
+        {/* From */}
         <Grid size={5}>
-          <FormControl fullWidth>
+          <FormControl fullWidth size="small">
             <InputLabel>From</InputLabel>
             <Select
               value={from}
@@ -112,12 +82,14 @@ const Converter: React.FC<Props> = ({ rates }) => {
 
         {/* Arrow */}
         <Grid size={2} sx={{ textAlign: "center" }}>
-          <Typography variant="h6">→</Typography>
+          <Typography sx={{ fontSize: "1rem", color: "#888" }}>
+            →
+          </Typography>
         </Grid>
 
-        {/* To Currency */}
+        {/* To */}
         <Grid size={5}>
-          <FormControl fullWidth>
+          <FormControl fullWidth size="small">
             <InputLabel>To</InputLabel>
             <Select
               value={to}
@@ -132,16 +104,29 @@ const Converter: React.FC<Props> = ({ rates }) => {
             </Select>
           </FormControl>
         </Grid>
-
-        {/* Result */}
-        <Grid size={12}>
-          <Box sx={{ mt: 2 }}>
-            <Typography variant="h6">
-              Result: {result.toFixed(2)} {to}
-            </Typography>
-          </Box>
-        </Grid>
       </Grid>
+
+      {/* Result */}
+      <Box
+        sx={{
+          mt: 3,
+          p: 1.5,
+          borderRadius: 2,
+          background: "#f9f9f9",
+          textAlign: "center",
+        }}
+      >
+        <Typography variant="caption" color="text.secondary">
+          Converted Amount
+        </Typography>
+
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 700, mt: 0.5 }}
+        >
+          {result.toFixed(2)} {to}
+        </Typography>
+      </Box>
     </Paper>
   );
 };
