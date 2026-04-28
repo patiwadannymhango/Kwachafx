@@ -142,7 +142,7 @@ const App = () => {
         }}
       >
         <Typography variant="body2" color="text.secondary">
-          Designed by Patiwa Danny Mhango © {new Date().getFullYear()}
+          Designed by Enax Technology Limited © {new Date().getFullYear()}
         </Typography>
       </Box>
     </Box>
