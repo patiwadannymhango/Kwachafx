@@ -18,11 +18,11 @@ import Converter from "./components/Converter";
 import RateCard from "./components/RateCard";
 import { currencies } from "./data/currencies";
 import logo from "./assets/logo.png";
+import { Analytics } from "@vercel/analytics/next"
 
 const App = () => {
   const [rates, setRates] = useState<Record<string, number>>({});
   const [loading, setLoading] = useState(true);
-
   const [selected, setSelected] = useState<string[]>([]);
 
   // 🛡️ Disclaimer modal state
@@ -206,6 +206,7 @@ const App = () => {
           </Button>
         </DialogActions>
       </Dialog>
+      <Analytics />
     </Box>
   );
 };
